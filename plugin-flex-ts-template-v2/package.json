@@ -22,7 +22,6 @@
     "@emoji-mart/react": "^1.1.1",
     "@twilio-paste/core": "^17.0.1",
     "@twilio-paste/icons": "^9.4.2",
-    "@twilio/flex-plugin-scripts": "7.0.0",
     "emoji-mart": "^5.5.2",
     "lodash": "^4.17.20",
     "luxon": "^3.1.1",
@@ -32,15 +31,14 @@
     "react-minimal-pie-chart": "^8.4.0",
     "rrule": "^2.7.1",
     "semver": "^7.6.3",
-    "simple-audio-recorder": "^1.2.3"
+    "simple-audio-recorder": "^1.2.3",
+    "@twilio/flex-plugin-scripts": "7.0.6"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.12.1",
     "@testing-library/react": "^12.1.5",
-    "@twilio/flex-ui": "^2.8.3",
-    "@types/jest": "^27.5.2",
+    "@twilio/flex-ui": "2.9.0",
     "@types/luxon": "^3.1.0",
-    "@types/react-redux": "^7.1.1",
     "@types/semver": "^7.5.8",
     "@types/uuid": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "^7.13.0",
@@ -51,8 +49,8 @@
     "jest": "^27.5.1",
     "jest-fetch-mock": "^3.0.3",
     "jest-junit": "^16.0.0",
-    "react-test-renderer": "17.0.2",
-    "typescript": "^5"
+    "typescript": "^5",
+    "react-test-renderer": "17.0.2"
   },
   "jest-junit": {
     "outputDirectory": "./test-results"
