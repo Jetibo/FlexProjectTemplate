@@ -106,10 +106,10 @@ const QueueDirectoryTab = (props: OwnProps) => {
   };
 
   // initial render
-  // useEffect(() => {
-  //   // fetch the workers from the taskrouter sdk on initial render
-  //   fetchSDKWorkers().catch(logger.error);
-  // }, []);
+  useEffect(() => {
+    // fetch the workers from the taskrouter sdk on initial render
+    fetchSDKWorkers().catch(logger.error);
+  }, []);
 
   useEffect(() => {
     filterWorkers();
