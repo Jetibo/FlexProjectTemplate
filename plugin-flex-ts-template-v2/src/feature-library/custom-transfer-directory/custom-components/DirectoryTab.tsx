@@ -4,11 +4,13 @@ import { Spinner } from '@twilio-paste/core/spinner';
 import { withTaskContext, ITask, Actions, Template, templates } from '@twilio/flex-ui';
 import { useState, useRef, useEffect } from 'react';
 import debounce from 'lodash/debounce';
+import { Worker } from 'twilio-taskrouter'; // to test
 
 import DirectoryItem from './DirectoryItem';
 import SearchBox from './SearchBox';
 import { StringTemplates } from '../flex-hooks/strings/CustomTransferDirectory';
 import { DirectoryEntry } from '../types/DirectoryEntry';
+import { generateCardComponents } from '../helpers/generateCardComponents';
 
 export interface TransferClickPayload {
   mode: 'WARM' | 'COLD';
@@ -16,7 +18,7 @@ export interface TransferClickPayload {
 
 export interface OwnProps {
   task: ITask;
-  entries: Array<DirectoryEntry>;
+  entries: Array<DirectoryEntry> | Array<Worker>; // to test
   isLoading: boolean;
   noEntriesMessage?: string;
   onTransferClick: (entry: DirectoryEntry, transferOptions: TransferClickPayload) => void;
@@ -37,12 +39,31 @@ const DirectoryTab = (props: OwnProps) => {
 
   // function to filter the entries and trigger a re-render
   const filterDirectory = () => {
-    const tempDir = props.entries.filter((entry) => {
-      const searchString = searchInputRef.current?.value.toLocaleLowerCase() || '';
-      return entry.label.toLocaleLowerCase().includes(searchString);
-    });
+    if (props.entries.length > 0 && 'label' in props.entries[0]) {
+      // entries is Array<DirectoryEntry>
+      console.log('test 2 DirectoryTab/type Queue');
+      const tempDir = props.entries.filter((entry) => {
+        const searchString = searchInputRef.current?.value.toLocaleLowerCase() || '';
+        return 'label' in entry && entry.label.toLocaleLowerCase().includes(searchString);
+      }) as DirectoryEntry[];
 
-    setFilteredDirectory(tempDir);
+      setFilteredDirectory(tempDir);
+    } else {
+      console.log('test 2 DirectoryTab/type Worker');
+      // const workerSearchString = searchInputRef.current?.value.toLocaleLowerCase() || '';
+      const workerSearchString = searchInputRef.current?.value.toLocaleLowerCase() || '@';
+      console.log('test 3 DirectoryTab/workerSearchString', workerSearchString);
+      // const updatedWorkersToTest = generateCardComponents( updatedWorkers, isColdTransferEnabled, isWarmTransferEnabled, searchString);
+      const updatedWorkersToTest = generateCardComponents(
+        props.entries as Array<Worker>,
+        true,
+        true,
+        workerSearchString,
+      ) as DirectoryEntry[];
+
+      console.log('test 4 DirectoryTab/updatedWorkersToTest', updatedWorkersToTest);
+      setFilteredDirectory(updatedWorkersToTest);
+    }
   };
 
   const filterDirectoryDebounce = debounce(filterDirectory, 500, { maxWait: 1000 });
