@@ -48,44 +48,46 @@ export interface GetWorkerActivitiesResponse {
 
 export interface EventData {
   operating_unit_sid: string;
-  worker_activity_name: string;
-  worker_activity_sid: string;
-  worker_attributes: string; // JSON string
-  full_name: string;
-  image_url: string;
-  roles: string[];
-  contact_uri: string;
-  selectedCallerId: string;
-  email: string;
-  worker_name: string;
-  worker_previous_activity_name: string;
-  worker_previous_activity_sid: string;
-  worker_sid: string;
-  worker_time_in_previous_activity: string;
-  worker_time_in_previous_activity_ms: string;
-  worker_version: string;
+  task_age: string;
+  task_assignment_status: string;
+  task_attributes: string; // JSON string
+  task_channel_sid: string;
+  task_channel_unique_name: string;
+  task_priority: string;
+  task_queue_entered_date: string;
+  task_queue_name: string;
+  task_queue_sid: string;
+  task_queue_target_expression: string;
+  task_sid: string;
+  task_version: string;
+  task_virtual_start_time: string;
+  workflow_filter_expression?: string;
+  workflow_filter_name?: string;
+  workflow_name: string;
+  workflow_sid: string;
   workspace_name: string;
   workspace_sid: string;
+  task_canceled_reason?: string;
 }
 
 export interface Event {
-  accountSid: string;
-  actorSid: string;
-  actorType: string;
-  actorUrl: string;
+  account_sid: string;
+  actor_sid: string;
+  actor_type: string;
+  actor_url: string;
   description: string;
-  eventData: EventData;
-  eventDate: string;
-  eventDateMs: number;
-  eventType: string;
-  resourceSid: string;
-  resourceType: string;
-  resourceUrl: string;
+  event_data: EventData;
+  event_date: string;
+  event_date_ms: number;
+  event_type: string;
+  resource_sid: string;
+  resource_type: string;
+  resource_url: string;
   sid: string;
   source: string;
-  sourceIpAddress: string;
+  source_ip_address: string;
   url: string;
-  workspaceSid: string;
+  workspace_sid: string;
 }
 
 interface UpdateWorkerChannelResponse {

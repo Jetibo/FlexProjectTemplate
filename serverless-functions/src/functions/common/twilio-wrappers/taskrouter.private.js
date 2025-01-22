@@ -364,3 +364,41 @@ exports.getTasks = async function getTasks(parameters) {
     }));
   });
 };
+
+/**
+ * @param {object} parameters the parameters for the function
+ * @param {object} parameters.context the context from calling lambda function
+ * @param {string} parameters.taskSid the task to fetch
+ * @returns {object} an object containing the task if successful
+ * @description fetches the given task
+ */
+exports.fetchEvents = async function fetchEvents(parameters) {
+  const { context, workerSid } = parameters;
+
+  if (!isString(workerSid))
+    throw new Error('Invalid parameters object passed. Parameters must contain workerSid string');
+  if (!isObject(context))
+    throw new Error('Invalid parameters object passed. Parameters must contain reason context object');
+
+  return twilioExecute(context, async (client) => {
+    return client.taskrouter.v1.workspaces(process.env.TWILIO_FLEX_WORKSPACE_SID).events.list({
+      eventType: 'worker.activity.update',
+      workerSid,
+      minutes: 10080, // Last 7 days
+      limit: 5, // I can make it selectable
+    });
+  });
+
+  // const result = await twilioExecute(context, async (client) => {
+  //   return client.taskrouter.v1.workspaces(process.env.TWILIO_FLEX_WORKSPACE_SID).events.list({
+  //     eventType: 'worker.activity.update',
+  //     workerSid,
+  //     minutes: 10080,
+  //     limit: 2,
+  //   });
+  // });
+
+  // // Log the result
+  // console.log('Worker Activity Events:', result);
+  // return result;
+};
