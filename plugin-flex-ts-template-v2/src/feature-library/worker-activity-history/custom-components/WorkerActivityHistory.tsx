@@ -43,6 +43,7 @@ export default function WorkerActivityHistory(props: OwnProps) {
 
   return (
     <Box paddingX="space100" paddingTop="space130" paddingBottom="space160">
+      <h1>TEST</h1>
       <Box>
         <DataGrid aria-label="label1">
           <DataGridHead>
